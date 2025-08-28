@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background_light">
+
+    <!-- Header com nome do evento -->
+    <TextView
+        android:id="@+id/textEventoAtual"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text=""
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/text_primary"
+        android:background="@color/white"
+        android:gravity="center"
+        android:elevation="2dp"
+        android:visibility="gone" />
+
+    <!-- Container principal -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <!-- Layout de configuração -->
+        <ScrollView
+            android:id="@+id/layoutConfig"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Nome do leitor -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="NOME DE IDENTIFICAÇÃO DO LEITOR:"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_secondary"
+                    android:layout_marginBottom="8dp" />
+
+                <!-- Linha com EditText bloqueado + botões -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="16dp">
+
+                    <EditText
+                        android:id="@+id/etNomeLeitor"
+                        android:layout_width="0dp"
+                        android:layout_height="56dp"
+                        android:layout_weight="1"
+                        android:hint="LEITOR-XXXX"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textAllCaps="true"
+                        android:background="@drawable/edit_text_background"
+                        android:padding="16dp"
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:clickable="false" />
+
+                    <Button
+                        android:id="@+id/btnEditarNomeLeitor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:layout_marginStart="8dp"
+                        android:text="Editar"
+                        android:textStyle="bold"
+                        android:background="@drawable/button_secondary"
+                        android:textColor="@color/white" />
+
+                    <Button
+                        android:id="@+id/btnSalvarNomeLeitor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:layout_marginStart="8dp"
+                        android:text="Salvar"
+                        android:textStyle="bold"
+                        android:background="@drawable/button_primary"
+                        android:textColor="@color/white"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+                <!-- Lista de setores -->
+                <LinearLayout
+                    android:id="@+id/setoresContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="24dp"/>
+
+                <!-- Botões de modo -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="24dp">
+
+                    <Button
+                        android:id="@+id/btnModoCamera"
+                        android:layout_width="0dp"
+                        android:layout_height="56dp"
+                        android:layout_weight="1"
+                        android:text="📱 CÂMERA"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:background="@drawable/button_primary"
+                        android:textColor="@color/white"
+                        android:layout_marginEnd="8dp" />
+
+                    <Button
+                        android:id="@+id/btnModoLeitor"
+                        android:layout_width="0dp"
+                        android:layout_height="56dp"
+                        android:layout_weight="1"
+                        android:text="🔍 LEITOR"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:background="@drawable/button_secondary"
+                        android:textColor="@color/text_primary"
+                        android:layout_marginStart="8dp" />
+                </LinearLayout>
+
+                <!-- Botão Validar -->
+                <Button
+                    android:id="@+id/btnValidar"
+                    android:layout_width="match_parent"
+                    android:layout_height="72dp"
+                    android:text="🔍 VALIDAR"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/button_primary"
+                    android:textColor="@color/white"
+                    android:enabled="false" />
+
+                <!-- Texto de instrução -->
+                <TextView
+                    android:id="@+id/textInstrucao"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Selecione pelo menos um setor para validar"
+                    android:textSize="14sp"
+                    android:textColor="@color/red_error"
+                    android:gravity="center"
+                    android:layout_marginTop="8dp" />
+
+                <!-- Contador -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardContador"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="4dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Validações"
+                            android:textStyle="bold"
+                            android:textSize="16sp"
+                            android:gravity="center"
+                            android:textColor="@color/text_primary" />
+
+                        <TextView
+                            android:id="@+id/textContadorValidacoes"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textSize="48sp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:textColor="@color/primary_blue"
+                            android:layout_marginTop="8dp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Validações neste evento"
+                            android:textSize="14sp"
+                            android:gravity="center"
+                            android:textColor="@color/text_secondary"
+                            android:layout_marginTop="4dp" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+        </ScrollView>
+
+        <!-- Layout de validação ativa (igual ao seu atual; mantido) -->
+        <LinearLayout
+            android:id="@+id/layoutValidacao"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/scanner_background"
+            android:visibility="gone">
+
+            <!-- Card status -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginTop="24dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="6dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/textStatusTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="AGUARDANDO LEITURA"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/text_primary" />
+
+                    <TextView
+                        android:id="@+id/textStatusSubtitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Posicione o código para validação"
+                        android:textSize="14sp"
+                        android:textColor="@color/text_secondary"
+                        android:layout_marginTop="6dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Preview da câmera -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardCamera"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_margin="24dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="4dp">
+
+                <RelativeLayout
+                    android:id="@+id/barcodeScanner"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="visible">
+
+                    <com.journeyapps.barcodescanner.DecoratedBarcodeView
+                        android:id="@+id/decoratedBarcodeView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:zxing_use_texture_view="true" />
+
+                    <View
+                        android:id="@+id/scannerOverlay"
+                        android:layout_width="250dp"
+                        android:layout_height="250dp"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/scanner_overlay" />
+
+                    <Button
+                        android:id="@+id/btnVoltarCamera"
+                        android:layout_width="80dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_margin="16dp"
+                        android:text="Voltar"
+                        android:textSize="12sp"
+                        android:background="@drawable/button_danger"
+                        android:textColor="@color/white" />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Leitor manual -->
+            <LinearLayout
+                android:id="@+id/layoutLeitorManual"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:visibility="gone"
+                android:background="@color/white"
+                android:layout_marginTop="50dp"
+                android:layout_marginBottom="50dp"
+                android:padding="50dp"
+                android:descendantFocusability="afterDescendants">
+
+                <EditText
+                    android:id="@+id/etCodigoManual"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:hint="Aguardando leitura..."
+                    android:textSize="18sp"
+                    android:textColor="@color/text_primary"
+                    android:textColorHint="@color/text_secondary"
+                    android:background="@drawable/edit_text_background"
+                    android:padding="16dp"
+                    android:gravity="center"
+                    android:inputType="textNoSuggestions"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:imeOptions="actionDone|flagNoEnterAction">
+
+                    <!-- força foco quando o layout aparece -->
+                    <requestFocus/>
+                </EditText>
+            </LinearLayout>
+<!--            <LinearLayout-->
+<!--                android:id="@+id/layoutLeitorManual"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="0dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:orientation="vertical"-->
+<!--                android:gravity="center"-->
+<!--                android:visibility="gone"-->
+<!--                android:background="@color/white"-->
+<!--                android:layout_marginTop="50dp"-->
+<!--                android:layout_marginBottom="50dp"-->
+<!--                android:padding="50dp">-->
+
+<!--                <EditText-->
+<!--                    android:id="@+id/etCodigoManual"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="56dp"-->
+<!--                    android:hint="Aguardando leitura..."-->
+<!--                    android:textSize="18sp"-->
+<!--                    android:textColor="@color/text_primary"-->
+<!--                    android:textColorHint="@color/text_secondary"-->
+<!--                    android:background="@drawable/edit_text_background"-->
+<!--                    android:padding="16dp"-->
+<!--                    android:gravity="center"-->
+<!--                    android:imeOptions="actionDone"-->
+<!--                    android:inputType="textNoSuggestions"-->
+<!--                    android:maxLines="1"-->
+<!--                    android:singleLine="true" />-->
+<!--            </LinearLayout>-->
+
+            <!-- Resultado: JÁ UTILIZADO -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardResultadoInvalido"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="12dp"
+                android:visibility="gone"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="4dp"
+                app:cardBackgroundColor="@color/red_error">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/textInvalidoTitulo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="CÓDIGO INVÁLIDO"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Resultado: JÁ UTILIZADO -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardResultadoUsado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="12dp"
+                android:visibility="gone"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="4dp"
+                app:cardBackgroundColor="#F97316">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/textUsadoTitulo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="CÓDIGO JÁ UTILIZADO"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:id="@+id/textUsadoInfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Utilizado em: --/--/----, --:--:--"
+                        android:textSize="14sp"
+                        android:textColor="@color/white"
+                        android:layout_marginTop="8dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Resultado: LIBERADO -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardResultadoLiberado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="12dp"
+                android:visibility="gone"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="4dp"
+                app:cardBackgroundColor="#22C55E">
+
+                <TextView
+                    android:id="@+id/textLiberado"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="LIBERADO"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:textSize="22sp"
+                    android:gravity="center"
+                    android:padding="18dp" />
+            </androidx.cardview.widget.CardView>
+
+            <!-- Contador inferior -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:background="@color/white"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Validações: "
+                    android:textSize="16sp"
+                    android:textColor="@color/primary_blue"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textContadorInferior"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="16sp"
+                    android:textColor="@color/primary_blue"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- Botão Voltar -->
+            <Button
+                android:id="@+id/btnVoltar"
+                android:layout_width="200dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:text="Voltar"
+                android:textSize="16sp"
+                android:background="@drawable/button_secondary"
+                android:textColor="@color/white"
+                android:layout_margin="16dp"
+                android:focusable="false"
+                android:focusableInTouchMode="false" />
+        </LinearLayout>
+    </FrameLayout>
+</LinearLayout>

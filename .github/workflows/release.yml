@@ -1,0 +1,130 @@
+name: Android Release
+
+on:
+  #workflow_dispatch: {}        # disparo manual
+  # se quiser por tag, habilite abaixo:
+   push:
+     tags:
+       - "v*"
+
+permissions:
+  contents: write              # precisa para criar release e subir assets
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Setup Gradle (cache)
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      # Opcional: garante memória/encoding (sem aspas no -Xmx pra evitar o erro "-Xmx64m")
+      - name: Sanitize Java/Gradle env
+        run: |
+          echo "Before:"
+          echo "GRADLE_OPTS=${GRADLE_OPTS}"
+          echo "JAVA_TOOL_OPTIONS=${JAVA_TOOL_OPTIONS}"
+          echo "JAVA_OPTS=${JAVA_OPTS}"
+          echo "JVM_OPTS=${JVM_OPTS}"
+
+          # remove qualquer flag com aspas herdada do ambiente
+          unset GRADLE_OPTS
+          unset JAVA_TOOL_OPTIONS
+          unset JAVA_OPTS
+          unset JVM_OPTS
+
+          # garante jvmargs corretos (sem aspas) via gradle.properties do runner
+          mkdir -p ~/.gradle
+          cat > ~/.gradle/gradle.properties <<EOF
+          org.gradle.jvmargs=-Xmx2g -Dfile.encoding=UTF-8
+          EOF
+
+          echo "After:"
+          env | sort | grep -E 'JAVA|GRADLE|JVM' || true
+
+      - name: Build release APK
+        run: ./gradlew --no-daemon clean assembleRelease
+
+      # Lê versionName/versionCode do task printVersion que você já tem no build.gradle
+      - name: Read version from Gradle
+        id: version
+        run: |
+            OUT=$(./gradlew -q printVersion | tr -d '\r')
+            echo "$OUT"
+            NAME=$(echo "$OUT" | grep '^VERSION_NAME=' | cut -d'=' -f2)
+            CODE=$(echo "$OUT" | grep '^VERSION_CODE=' | cut -d'=' -f2)
+
+            # Se veio por tag, usa a tag que disparou; se for manual, gera uma
+            if [ "${{ github.event_name }}" = "push" ]; then
+              TAG="${GITHUB_REF_NAME}"     # a tag v* que você fez push
+            else
+              DATE=$(date +'%Y%m%d-%H%M')
+              TAG="v${NAME}-${CODE}-${DATE}"
+            fi
+
+            echo "name=$NAME" >> $GITHUB_OUTPUT
+            echo "code=$CODE" >> $GITHUB_OUTPUT
+            echo "tag=$TAG"   >> $GITHUB_OUTPUT
+
+      - name: Prepare dist
+        id: dist
+        run: |
+          set -e
+          mkdir -p dist
+          APK_PATH=$(ls -1 app/build/outputs/apk/release/*.apk | head -n 1)
+          if [ -z "$APK_PATH" ]; then
+            echo "APK não encontrado em app/build/outputs/apk/release/"
+            exit 1
+          fi
+          APK_NAME=$(basename "$APK_PATH")
+          cp "$APK_PATH" dist/
+          SIZE=$(stat -c%s "dist/$APK_NAME")
+          SHA256=$(sha256sum "dist/$APK_NAME" | cut -d' ' -f1)
+          echo "apk=$APK_NAME"   >> $GITHUB_OUTPUT
+          echo "size=$SIZE"      >> $GITHUB_OUTPUT
+          echo "sha256=$SHA256"  >> $GITHUB_OUTPUT
+
+      # Gera update.json já com a URL previsível de release
+      - name: Generate update.json
+        run: |
+          DOWNLOAD_URL="https://github.com/${{ github.repository }}/releases/download/${{ steps.version.outputs.tag }}/${{ steps.dist.outputs.apk }}"
+          cat > dist/update.json <<EOF
+          {
+            "versionName": "${{ steps.version.outputs.name }}",
+            "versionCode": ${{
+              steps.version.outputs.code
+            }},
+            "artifactName": "${{ steps.dist.outputs.apk }}",
+            "size": ${{ steps.dist.outputs.size }},
+            "sha256": "${{ steps.dist.outputs.sha256 }}",
+            "download_url": "$DOWNLOAD_URL",
+            "release_tag": "${{ steps.version.outputs.tag }}",
+            "repo": "${{ github.repository }}"
+          }
+          EOF
+          cat dist/update.json
+
+      - name: Create GitHub Release & Upload Assets
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.version.outputs.tag }}
+          name: "Android ${{ steps.version.outputs.name }} (#${{ steps.version.outputs.code }})"
+          draft: false
+          prerelease: false
+          files: |
+            dist/${{ steps.dist.outputs.apk }}
+            dist/update.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

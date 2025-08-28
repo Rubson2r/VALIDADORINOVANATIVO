@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#2196F3</color>
+    <color name="colorPrimaryDark">#1976D2</color>
+    <color name="colorAccent">#FF4081</color>
+    
+    <!-- Cores customizadas -->
+    <color name="primary_blue">#4F8EF7</color>
+    <color name="primary_blue_light">#6BA3F7</color>
+    <color name="primary_blue_dark">#1E5EBF</color>
+    <color name="background_light">#F8F9FA</color>
+    <color name="background_dark">#525966</color>
+    <color name="text_primary">#1F2937</color>
+    <color name="text_secondary">#6B7280</color>
+    <color name="white">#FFFFFF</color>
+    <color name="error_red">#EF4444</color>
+    <color name="success_green">#22C55E</color>
+    <color name="warning_yellow">#F59E0B</color>
+    <color name="red_error">#EF4444</color>
+    <color name="scanner_background">#525966</color>
+    <color name="text_light">#E5E7EB</color>
+    <color name="status_reading">#525966</color>
+    <color name="switch_track">#E5E7EB</color>
+    
+    <!-- Cores adicionais necessárias -->
+    <color name="colorDisabled">#9CA3AF</color>
+    <color name="colorBackground">#F8F9FA</color>
+    <color name="colorSurface">#FFFFFF</color>
+    <color name="colorTextSecondary">#6B7280</color>
+    <color name="colorText">#1F2937</color>
+    <color name="black">#000000</color>
+    <color name="primary">#4F8EF7</color>
+    <color name="primary_variant">#1E5EBF</color>
+    <color name="white_70">#B3FFFFFF</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="success">#22C55E</color>
+    <color name="divider">#E5E7EB</color>
+    <color name="error">#EF4444</color>
+    <color name="orange">#F59E0B</color>
+</resources>

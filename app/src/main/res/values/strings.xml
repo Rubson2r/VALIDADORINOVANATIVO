@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Validador Inova</string>
+    
+    <!-- Títulos principais -->
+    <string name="titulo_principal">Sistema de Validação de Ingressos</string>
+    <string name="subtitulo_principal">Gerencie eventos, setores e códigos de ingressos</string>
+    
+    <!-- Navegação -->
+    <string name="nav_eventos">Eventos</string>
+    <string name="nav_locais">Locais</string>
+    <string name="nav_setores">Setores</string>
+    <string name="nav_codigos">Códigos</string>
+    <string name="nav_logs">Logs</string>
+    <string name="nav_scanner">Scanner</string>
+    <string name="nav_config">Configurações</string>
+    
+    <!-- Botões -->
+    <string name="btn_novo_evento">Novo Evento</string>
+    <string name="btn_conectar">CONECTAR</string>
+    <string name="btn_salvar">Salvar</string>
+    <string name="btn_cancelar">Cancelar</string>
+    <string name="btn_voltar">Voltar</string>
+    <string name="btn_sincronizar">Sincronizar</string>
+    <string name="btn_zerar_cache">Zerar Cache</string>
+    <string name="btn_zerar_evento">Zerar Evento</string>
+    <string name="btn_testar_conexao">Testar Conexão</string>
+    <string name="btn_limpar_logs">Limpar Logs</string>
+    <string name="btn_exportar_logs">Exportar Logs</string>
+    
+    <!-- Scanner -->
+    <string name="scanner_titulo">Scanner QR Code</string>
+    <string name="scanner_instrucao">Posicione o QR Code na área de leitura</string>
+    <string name="scanner_instrucao_detalhada">Mantenha o código dentro da área de foco\nPara melhor leitura, use boa iluminação</string>
+    <string name="scanner_validados">Validados</string>
+    <string name="scanner_bloqueados">Bloqueados</string>
+    
+    <!-- Validação -->
+    <string name="validacao_sucesso">Acesso liberado!</string>
+    <string name="validacao_erro_geral">Código inválido</string>
+    <string name="validacao_erro_nao_encontrado">Código não encontrado</string>
+    <string name="validacao_erro_ja_usado">Código já foi utilizado</string>
+    <string name="validacao_erro_evento_diferente">Código não pertence a este evento</string>
+    <string name="validacao_erro_sem_evento">Nenhum evento ativo selecionado</string>
+    
+    <!-- Configurações -->
+    <string name="config_titulo">Configurações</string>
+    <string name="config_supabase_url">URL do Supabase</string>
+    <string name="config_supabase_key">Chave do Supabase</string>
+    <string name="config_usuario_validador">Usuário Validador</string>
+    <string name="config_modo_offline">Modo Offline</string>
+    
+    <!-- Sincronização -->
+    <string name="sync_aguardando">Aguardando sincronização...</string>
+    <string name="sync_em_andamento">Sincronizando...</string>
+    <string name="sync_eventos">Eventos sincronizados</string>
+    <string name="sync_logs">Logs enviados</string>
+    <string name="sync_completa">Sincronização completa</string>
+    <string name="sync_erro">Erro na sincronização</string>
+    <string name="sync_cache_limpo">Cache limpo</string>
+    
+    <!-- Modo de Operação -->
+    <string name="modo_operacao_titulo">🎯 Modo de Operação</string>
+    <string name="modo_operacao_subtitle">Baixar dados de evento</string>
+    <string name="modo_operacao_instrucao">Selecione abaixo o evento</string>
+    
+    <!-- Abas -->
+    <string name="aba_sincronizacao">SINCRONIZAÇÃO</string>
+    <string name="aba_validacao">VALIDAÇÃO</string>
+    
+    <!-- Status -->
+    <string name="status_ativo">Ativo</string>
+    <string name="status_inativo">Inativo</string>
+    <string name="status_liberado">LIBERADO</string>
+    <string name="status_bloqueado">BLOQUEADO</string>
+    <string name="status_erro">ERRO</string>
+    <string name="status_sucesso">SUCESSO</string>
+    <string name="status_aviso">AVISO</string>
+    <string name="status_info">INFO</string>
+    
+    <!-- Logs -->
+    <string name="logs_titulo">Histórico de Logs</string>
+    <string name="logs_sem_detalhes">Sem detalhes</string>
+    <string name="logs_sistema">Sistema</string>
+    
+    <!-- Eventos -->
+    <string name="evento_nao_definido">Não definido</string>
+    <string name="evento_hora_nao_definida">Não definida</string>
+    <string name="evento_local_nao_definido">Não definido</string>
+    
+    <!-- Mensagens de erro -->
+    <string name="erro_permissao_camera">Permissão de câmera necessária</string>
+    <string name="erro_camera_nao_disponivel">Câmera não disponível</string>
+    <string name="erro_conexao_banco">Erro de conexão com banco de dados</string>
+    <string name="erro_conexao_internet">Erro de conexão com internet</string>
+    
+    <!-- Mensagens de sucesso -->
+    <string name="sucesso_evento_ativado">Evento ativado com sucesso</string>
+    <string name="sucesso_configuracoes_salvas">Configurações salvas</string>
+    <string name="sucesso_conexao_testada">Conexão testada com sucesso</string>
+    
+    <!-- Config Activity específicas -->
+    <string name="configuracoes">Configurações</string>
+    <string name="nome_leitor">Nome do Leitor</string>
+    <string name="digite_nome_leitor">Digite o nome do leitor</string>
+    <string name="evento_ativo">Evento Ativo</string>
+    <string name="modo_offline">Modo Offline</string>
+    <string name="voltar">Voltar</string>
+    <string name="salvar">Salvar</string>
+</resources>
